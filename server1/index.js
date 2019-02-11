@@ -62,12 +62,12 @@ console.log('Server started and port: 3030');
 // Single Page
 // - Admin
 // 	Add products, dar, ver transacc del checkout sin reload boton relaod, edit user. 
-// User: cart-CRUD, cehckout., edit
+// - User: cart-CRUD, cehckout., edit
 
 // User no image.
 // Admin guardar images donde quieras.
 
-// Server2 
+// Server2
 // Aceptar conexiones de ese solo unico server.
 // 
 
