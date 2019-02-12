@@ -20,7 +20,7 @@ const app = express();
 // 	next();
 // });
 app.use(cookieParser());
-app.use(express.static('./public_html'));
+app.use(express.static('./public')); // ACcess to public folder.
 app.use('/users', users);
 // Lo normal es usar use, pero igual puedes usar all
 app.use('/*', (req, res, next) => {
