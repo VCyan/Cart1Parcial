@@ -1,21 +1,19 @@
 <html>
 
-    <head>
-    <script
-  src="https://code.jquery.com/jquery-3.3.1.min.js"
-  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-  crossorigin="anonymous"></script>
-        
-    </head>
+<head>
+	<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+	 crossorigin="anonymous"></script>
 
-    
-    <body>
-        Index on html
-        
-        <div id="main"></div>
-        <script>
-        
-            function pingDone(data){
+</head>
+
+
+<body>
+	<h1>Pagina principal</h1>
+
+	<div id="main"></div>
+	<script>
+
+		function pingDone(data){
                //  alert("Data arrived:" + data);
                 $("#main").html( data) ;
                 //document.getElementById('main').innerHTML = data;
@@ -77,26 +75,24 @@
             
             $(document).ready(onStart);
         </script>
-        
-        <form name="UploadForm" action="/uploadFile" enctype="multipart/form-data" method="POST">
-            <input type="file" name="myFile" id="myFile" />
-            <button type="button" onclick="doUpload();">Enviar archivo</button>
-        </form>
-        
-        
-        <form name="NewUser" action="/users/create" enctype="multipart/form-data" method="POST">
-            <br/>Username: <input type="text" name="username" id="username" />
-            <br/>Password: <input type="password" name="password" id="password" />
-            <br/>Email: <input type="text" name="email" id="email" />
-            <br/>Photo:<input type="file" name="photoFile" id="photoFile" />
-            <button type="button" onclick="doInsertUser();">Enviar</button>
-        </form>
-        
-        
-        <a href="#" onclick="getUsers();">Get users</a>
-        <div id="allUsers"></div>
-    </body>
+
+	<form name="UploadForm" action="/uploadFile" enctype="multipart/form-data" method="POST">
+		<input type="file" name="myFile" id="myFile" />
+		<button type="button" onclick="doUpload();">Enviar archivo</button>
+	</form>
+
+
+	<form name="NewUser" action="/users/create" enctype="multipart/form-data" method="POST">
+		<br />Username: <input type="text" name="username" id="username" />
+		<br />Password: <input type="password" name="password" id="password" />
+		<br />Email: <input type="text" name="email" id="email" />
+		<br />Photo:<input type="file" name="photoFile" id="photoFile" />
+		<button type="button" onclick="doInsertUser();">Enviar</button>
+	</form>
+
+
+	<a href="#" onclick="getUsers();">Get users</a>
+	<div id="allUsers"></div>
+</body>
+
 </html>
-
-
-
