@@ -1,7 +1,7 @@
 {
-  "name": "04Cart",
+  "name": "Cart1Parcial",
   "version": "1.0.0",
-  "description": "",
+  "description": "Proyecto de 1er Parcial de Laboratorio de aplicaciones web",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
