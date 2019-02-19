@@ -19,8 +19,9 @@ class MongoConnector {
 	}
 
 	insertDocInCollection(col, fields, callback) {
-
 		this.client.db(dbName).collection(col).insertOne(fields, callback);
+		console.log('Success in insert');
+
 	}
 
 	/* { $set: {name: "Mickey", address: "Canyon 123" } };*/
@@ -30,27 +31,32 @@ class MongoConnector {
 	}
 
 	getDocsFromCollection(col, where, callback) {
-
 		this.client.db(dbName).collection(col).find(where).each(
 			(err, doc) => {
 				callback(doc);
 			}
 		);
-
 	}
 
+	getOneDoc(uname, callback) {
+		this.client.db(dbName).collection(col).findOne(uname).each(
+			(err, doc) => {
+				callback(doc);
+			}
+		);
+	}
 	/*
-	getUser(uname, callback){
-	     var i =0;
-	 this.client.db(dbName).collection('users').find({'username':uname}).each( (err,doc)=> {
-	     if( i == 0){
-	        this.client.close();
-	        callback(doc);
-	        i++;
-	     }
-	} ); 
-	 }
-	 */
+    getUser(uname, callback){
+         var i =0;
+     this.client.db(dbName).collection('users').find({'username':uname}).each( (err,doc)=> {
+         if( i == 0){
+            this.client.close();
+            callback(doc);
+            i++;
+         }
+    } ); 
+     }
+     */
 
 }
 

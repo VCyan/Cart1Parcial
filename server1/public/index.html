@@ -3,85 +3,104 @@
 <head>
 	<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
 	 crossorigin="anonymous"></script>
-
 </head>
-
 
 <body>
 	<h1>Pagina principal</h1>
+	<h1>Login</h1>
 
 	<div id="main"></div>
 	<script>
+		// function pingDone(data) {
+			// 	//  alert("Data arrived:" + data);
+			// 	$('#main').html(data);
+			// 	//document.getElementById('main').innerHTML = data;
+			// }
 
-		function pingDone(data){
-               //  alert("Data arrived:" + data);
-                $("#main").html( data) ;
-                //document.getElementById('main').innerHTML = data;
-            }
-            
-            function onStart(){
-                alert("loaded!");
-                $.ajax('/ping').done( pingDone );
-            }
-            
-            function doInsertUser(){
-                var data =  new FormData();
-                data.append("username" , $("#username")[0].value);
-                data.append("password" , $("#password")[0].value);
-                data.append("email" , $("#email")[0].value);
-                data.append("photo", $("#photoFile")[0].files[0]);
-                
-                $.ajax({
-                    url: "/users/create/",
-                    data: data,
-                    cache: false,
-                    contentType: false,
-                    processData: false,
-                    method: 'POST',
-                    type: 'POST', // For jQuery < 1.9
-                    success: function(data){
-                        alert("Did arrive " + data);
-                    }
-                });
-            }
-            
-            function getUsers(){
-                
-                  $.ajax('/users/getUsers').done( (data)=>{
-                      $("#allUsers").html(data);
-                  } );
-                
-            }
-            
-            function doUpload(){
-                
-                var data =  new FormData();
-                
-                data.append("File1", $("#myFile")[0].files[0]);
-                
-                $.ajax({
-                    url: "/uploadFile",
-                    data: data,
-                    cache: false,
-                    contentType: false,
-                    processData: false,
-                    method: 'POST',
-                    type: 'POST', // For jQuery < 1.9
-                    success: function(data){
-                        alert("Did arrive " + data);
-                    }
-                });
-            }
-            
-            $(document).ready(onStart);
-        </script>
+			// function onStart() {
+			// 	alert('loaded!');
+			// 	$.ajax('/ping').done(pingDone);
+			// }
+
+			function doInsertUser() {
+				var data = new FormData();
+				data.append('username', $('#username')[0].value);
+				data.append('password', $('#password')[0].value);
+				data.append('email', $('#email')[0].value);
+				data.append('photo', $('#photoFile')[0].files[0]);
+
+				$.ajax({
+					url: '/users/create/',
+					data: data,
+					cache: false,
+					contentType: false,
+					processData: false,
+					method: 'POST',
+					type: 'POST', // For jQuery < 1.9
+					success: function(data) {
+						alert('Did arrive ' + data);
+					}
+				});
+			}
+
+			function getUsers() {
+				$.ajax('/users/getUsers').done(data => {
+					$('#allUsers').html(data);
+				});
+			}
+
+			function doLogin() {
+				var data = new FormData();
+				data.append('username', $('#usernameLogin')[0].value);
+				data.append('password', $('#passwordLogin')[0].value);
+
+				$.ajax({
+					url: '/users/loginUser',
+					data: data,
+					cache: false,
+					contentType: false,
+					processData: false,
+					method: 'GET',
+					type: 'GET' // For jQuery < 1.9 success: function(data) { alert('Did arrive ' + data);
+				}).done(response => {
+					// Found?
+					if (response) {
+						redirect('/userPage.html');
+					}
+					// UserType?
+				});
+			}
+
+			function doUpload() {
+				var data = new FormData();
+
+				data.append('File1', $('#myFile')[0].files[0]);
+
+				$.ajax({
+					url: '/uploadFile',
+					data: data,
+					cache: false,
+					contentType: false,
+					processData: false,
+					method: 'POST',
+					type: 'POST', // For jQuery < 1.9
+					success: function(data) {
+						alert('Did arrive ' + data);
+					}
+				});
+			}
+
+			// $(document).ready(onStart);
+			$(document).ready();
+		</script>
 
 	<form name="UploadForm" action="/uploadFile" enctype="multipart/form-data" method="POST">
 		<input type="file" name="myFile" id="myFile" />
 		<button type="button" onclick="doUpload();">Enviar archivo</button>
 	</form>
 
-
+	<br />
+	<h1>Sign up</h1>
 	<form name="NewUser" action="/users/create" enctype="multipart/form-data" method="POST">
 		<br />Username: <input type="text" name="username" id="username" />
 		<br />Password: <input type="password" name="password" id="password" />
@@ -90,6 +109,14 @@
 		<button type="button" onclick="doInsertUser();">Enviar</button>
 	</form>
 
+	<h1>Login</h1>
+	<form class="login" action="/users/loginUser" method="GET">
+		<br />Username:
+		<input type="text" name="usernameLogin" id="usernameLogin" />
+		<br />Password:
+		<input type="password" name="passwordLogin" id="passwordLogin" />
+		<button type="button" onclick="doLogin();">Enviar</button>
+	</form>
 
 	<a href="#" onclick="getUsers();">Get users</a>
 	<div id="allUsers"></div>

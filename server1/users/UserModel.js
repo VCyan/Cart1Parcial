@@ -6,7 +6,7 @@ class UserModel {
 		this.email = data.email;
 		this.password = data.password;
 		this.photo = data.photo;
-
+		this.userType = 0; // userType if 0 = user, if 1 then admin.
 	}
 
 	/*
@@ -21,7 +21,8 @@ class UserModel {
 			username: userModel.username,
 			password: userModel.password,
 			email: userModel.email,
-			photo: userModel.photo
+			photo: userModel.photo,
+			usertype: userModel.userType
 		};
 		connector.insertDocInCollection('users', data, callback);
 	}
@@ -42,8 +43,9 @@ class UserModel {
 	callback: function to call EACH time a record is found
 	*/
 	static getUser(connector, id, callback) {
-
-
+		connector.getOneDoc({
+			"username": id
+		}, callback);
 	}
 
 	/*
