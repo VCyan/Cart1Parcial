@@ -13,7 +13,7 @@ class UserPModel{
   */
   static getUsers(connector, userModel, callback){
 
-      connector.getDocsFromCollection('users', {}, callback);
+      connector.getDocsFromCollection('users', userModel, callback);
   }
 }
 

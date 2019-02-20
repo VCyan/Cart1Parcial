@@ -3,7 +3,22 @@ class SesionModel{
   constructor(data){
       this.id = data._id;
       this.username = data.username;
-      this.password = data.password;  
+      this.token = data.token;
+  }
+
+  /*
+
+  connector: mongo db connection
+  sesionModel: data to insert
+  callback: function to call
+  */
+  static insertSesion(connector, sesionModel, callback){
+
+      var data = {
+          username:sesionModel.username,
+          token:sesionModel.token
+      };
+      connector.insertDocInCollection('sesions', data, callback);
   }
 }
 
