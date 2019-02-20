@@ -1,10 +1,11 @@
 // users handler
-var fs = require('fs');
-var express = require('express');
-var multer = require('multer');
-var UserModel = require('./UserModel.js');
-var Mongo = require('../MongoConnector.js');
-var router = express.Router();
+const fs = require('fs');
+const express = require('express');
+const multer = require('multer');
+const UserModel = require('./UserModel.js');
+const Mongo = require('../MongoConnector.js');
+const router = express.Router();
+const request = require('request');
 
 
 var formUpload = multer({
@@ -13,10 +14,9 @@ var formUpload = multer({
 
 router.get('/', (req, res, next) => {
 	res.send('Users hello');
-
 });
 
-router.get('/getUsers', (req, res, next) => {
+/* router.get('/getUsers', (req, res, next) => {
 	console.log('getting');
 	var str = '';
 	var connector = new Mongo((err) => {
@@ -49,7 +49,7 @@ router.get('/loginUser', (req, res, next) => {
 		});
 		// console.log('Ready!! to go ');
 	});
-});
+}); */
 /*
  console.log(req.files["File1"][0]);
     
@@ -88,7 +88,7 @@ router.post('/create',
 
 		fs.renameSync(req.files['photo'][0].path, './public/' + finalPhotoUrl);
 
-		let user = new UserModel({
+		let data_to_post = new UserModel({
 			username: req.body.username,
 			password: req.body.password,
 			email: req.body.email,
@@ -96,6 +96,33 @@ router.post('/create',
 		});
 
 		// Perform ajax
+		// var postData = {
+		// 	name: 'test',
+		// 	value: 'test'
+		// };
+
+		const IP = 'http://10.25.251.166:3030';
+		var options = {
+			method: 'POST',
+			body: data_to_post,
+			json: true,
+			url: IP +'/users'
+		};
+
+		request(options, function (err, res, body) {
+			if (err) {
+				console.error('error posting json: ', err);
+				throw err;
+			}
+			var headers = res.headers;
+			var statusCode = res.statusCode;
+			// console.log('headers: ', headers);
+			// console.log('statusCode: ', statusCode);
+			// console.log('body: ', body);
+			let state = body.state;
+			console.log(state);
+		});
+
 
 		// var connector = new Mongo((err) => {
 
@@ -113,10 +140,10 @@ router.post('/create',
 	}
 );
 
-router.get('/profile/:id/edit', (req, res) => {
-	console.log('profile id=>' + req.params.id);
-	res.send('Id reached : ' + req.params.id);
-});
+// router.get('/profile/:id/edit', (req, res) => {
+// 	console.log('profile id=>' + req.params.id);
+// 	res.send('Id reached : ' + req.params.id);
+// });
 
 
 module.exports = router;
