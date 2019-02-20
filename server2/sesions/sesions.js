@@ -33,7 +33,7 @@ router.post('/', jsonParser, (req,res,next) => {
 
           //console.log(doc);
           //console.log(err);
-          console.log("Recieved: ", req.body);
+          //console.log("Recieved: ", req.body);
 
           if( doc == null ){
               res.end('{"state": "fail"}');
@@ -63,6 +63,31 @@ router.post('/', jsonParser, (req,res,next) => {
 
       console.log("Ready!! to go ");
   } );
+});
+
+router.delete('/', jsonParser, (req,res,next) => {
+  //res.end('Delete Sesion Request');
+  console.log("Delete Sesion Request Recieved: ", req.body);
+
+  var connector = new Mongo( (err)=>{
+    var sesion = new SesionModel({
+        username: req.body.username,
+        token: req.body.token
+    });
+    SesionModel.deleteSesion(connector,
+        sesion,
+        (err, mongoRes)=>{
+            console.log(mongoRes.result);
+            if (mongoRes.result.n == 0) {
+              res.end('{"state": "fail"}');
+              connector.close();
+            } else {
+              res.end('{"state": "success"}');
+              connector.close();
+            }
+        }
+    );
+  });
 });
 
 module.exports = router;

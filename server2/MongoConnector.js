@@ -13,32 +13,37 @@ class MongoConnector{
             callback(err);
         });
     }
-    
+
     close(){
         this.client.close();
     }
-    
+
     insertDocInCollection(col, fields, callback){
-        
+
         this.client.db(dbName).collection(col).insertOne(fields , callback);
     }
-    
+
+    removeDocInCollection(col, fields, callback){
+
+        this.client.db(dbName).collection(col).deleteOne(fields , callback);
+    }
+
     /*{ $set: {name: "Mickey", address: "Canyon 123" } };*/
     updateDocInCollection(col,fields, where, callback){
-        
+
         this.client.db(dbName).collection(col).updateOne(where, fields,callback );
     }
-    
+
     getDocsFromCollection(col, where , callback){
-       
+
         this.client.db(dbName).collection(col).find(where).each(
             (err,doc)=>{
-               callback(doc); 
+               callback(doc);
             }
         );
-        
+
     }
-    
+
     /*
     getUser(uname, callback){
          var i =0;
@@ -48,7 +53,7 @@ class MongoConnector{
             callback(doc);
             i++;
          }
-    } ); 
+    } );
      }
      */
 
