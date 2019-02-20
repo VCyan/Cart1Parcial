@@ -1,6 +1,7 @@
 var express = require('express');
 var cookieParser = require('cookie-parser');
 var sesions = require('./sesions/sesions.js');
+var users = require('./users/users.js');
 
 var app = express();
 
@@ -9,11 +10,12 @@ var app = express();
 
 app.use( cookieParser() );
 app.use('/sesions' , sesions);
+app.use('/users' , users);
 
-app.use('/*' , (req,res,next)=>{
+/*app.use('/*' , (req,res,next)=>{
     console.log("Cookies: \n",  req.cookies);
     next();
-});
+});*/
 
 /*app.get('/setCookie' , (req,res)=>{
     res.cookie('myCookie','data');
