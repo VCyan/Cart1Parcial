@@ -17,46 +17,48 @@ router.get('/', (req, res, next) => {
 router.post('/create',
 	formUpload.fields(
 		[{
-			name: 'productName',
-			maxCount: 1
-		},
-		{
-			name: 'productPrice',
-			maxCount: 1
-		},
-		{
-			name: 'quantityProduct',
-			maxCount: 1
-		},
-		{
-			name: 'productDescription',
-			maxCount: 1
-		},
-		{
-			name: 'photoProduct',
-			maxCount: 1
-		}
+				name: 'productName',
+				maxCount: 1
+			},
+			{
+				name: 'productPrice',
+				maxCount: 1
+			},
+			{
+				name: 'quantityProduct',
+				maxCount: 1
+			},
+			{
+				name: 'productDescription',
+				maxCount: 1
+			},
+			{
+				name: 'photoProduct',
+				maxCount: 1
+			}
 		]
 	),
 	(req, res, next) => {
 		console.log(req.body);
 		console.log(req.files);
 
-		var finalPhotoUrl = 'photos/products/' + req.body.productName + '/' + req.files['photo'][0].originalname;
+		var finalPhotoUrl = 'photos/products/' + req.body.productName + '/' + req.files['photoProduct'][0].originalname;
 
 		if (!fs.existsSync('./public/photos/products/' + req.body.productName)) {
 			fs.mkdirSync('./public/photos/products/' + req.body.productName);
 		}
 
-		fs.renameSync(req.files['photo'][0].path, './public/' + finalPhotoUrl);
+		fs.renameSync(req.files['photoProduct'][0].path, './public/' + finalPhotoUrl);
 
 		let data_to_post = new ProductModel({
 			productName: req.body.productName,
 			productPrice: req.body.productPrice,
 			quantityProduct: req.body.quantityProduct,
 			productDescription: req.body.productDescription,
-			photoProduct: req.body.photoProduct
+			photoProduct: finalPhotoUrl
 		});
+
+		console.log(data_to_post);
 
 		// Perform ajax
 		const IP = 'http://10.25.251.166:3030';
@@ -66,6 +68,7 @@ router.post('/create',
 			json: true,
 			url: IP + '/products'
 		};
+		// console.log(options);
 
 		request(options, function (err, res, body) {
 			if (err) {

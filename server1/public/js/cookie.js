@@ -1,21 +1,21 @@
-const IP = 'http://10.25.251.166:3030';
+
 
 // const USERS_ENDPOINT = '/api/v1/users/search_users';
 // const PRODUCT_ENDPOINT = '/api/v1/events/search_events';
 
-$(document).ready(checkCookies);
+// $(document).ready(checkCookies);
 
-function checkCookies() {
-	// alert(document.cookie);
-	if (typeof Cookies.get('token') === 'undefined') {
-		// no cookie
-		alert('Usuario no logueado...');
-		window.location.replace('./index.html');
-	} else {
-		// have cookie
-		// Do nothing...
-	}
-}
+// function checkCookies() {
+// 	// alert(document.cookie);
+// 	if (typeof Cookies.get('token') === 'undefined') {
+// 		// no cookie
+// 		alert('Usuario no logueado...');
+// 		window.location.replace('./index.html');
+// 	} else {
+// 		// have cookie
+// 		// Do nothing...
+// 	}
+// }
 /* 
 function listCookies() {
 	var theCookies = document.cookie.split(';');

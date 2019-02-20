@@ -1,19 +1,16 @@
+const IP = 'http://10.25.251.166:3030';
 
-// $(document).ready(checkUser);
+$(document).ready(checkCookiesOUT);
 
-function checkUser() {
+function checkCookiesOUT() {
 	// alert(document.cookie);
 	if (typeof Cookies.get('token') === 'undefined') {
 		// no cookie
-		// alert('Usuario no logueado...');
-		// window.location.replace('./index.html');
+		// Get out of here...
+		window.location.replace('./index.html');
 	} else {
 		// have cookie
-		if (parseInt(Cookies.get('userType')) === 1) {
-			window.location.replace('./admin.html');
-		} else {
-			window.location.replace('./user.html');
-		}
+		// Stay here...
 	}
 }
 

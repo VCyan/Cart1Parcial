@@ -96,10 +96,6 @@ router.post('/create',
 		});
 
 		// Perform ajax
-		// var postData = {
-		// 	name: 'test',
-		// 	value: 'test'
-		// };
 
 		const IP = 'http://10.25.251.166:3030';
 		var options = {

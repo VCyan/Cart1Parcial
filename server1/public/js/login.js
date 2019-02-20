@@ -1,5 +1,25 @@
 const IP = 'http://10.25.251.166:3030';
 
+$(document).ready(checkCookiesIN);
+
+function checkCookiesIN() {
+	// alert(document.cookie);
+	if (typeof Cookies.get('token') === 'undefined') {
+		// no cookie
+		// No move!!! 
+		// alert('Usuario no logueado...');
+		// window.location.replace('./index.html');
+	} else {
+		// have cookie
+		// Go to your page...
+		if (parseInt(Cookies.get('userType')) === 1) {
+			window.location.replace('./admin.html');
+		} else {
+			window.location.replace('./user.html');
+		}
+	}
+}
+
 function doLogin() {
 	// var data_to_send = JSON.stringify($('form.classLogin').serializeArray());
 	var v_user = $('#usernameLogin').val();

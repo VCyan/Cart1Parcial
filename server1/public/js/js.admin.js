@@ -1,3 +1,9 @@
+$.valHooks.textarea = {
+	get: function (elem) {
+		return elem.value.replace(/\r?\n/g, '\r\n');
+	}
+};
+
 function doInsertUser() {
 	var data = new FormData();
 	data.append('username', $('#username')[0].value);
@@ -26,15 +32,22 @@ function doInsertUser() {
 }
 
 function doInsertProduct() {
+
+	var text = $('textarea').val();
+	// alert(text);
+
 	var data = new FormData();
 	data.append('productName', $('#productName')[0].value);
 	data.append('productPrice', $('#productPrice')[0].value);
 	data.append('quantityProduct', $('#quantityProduct')[0].value);
-	data.append('productDescription', $('#productDescription')[0].value);
+	data.append('productDescription', text);
 	data.append('photoProduct', $('#photoProduct')[0].files[0]);
-
+	// Display the key/value pairs
+	// for (var pair of data.entries()) {
+	// 	console.log(pair[0] + ', ' + pair[1]);
+	// }
 	$.ajax({
-		url: '/products/create/',
+		url: '/products/create',
 		data: data,
 		cache: false,
 		contentType: false,
