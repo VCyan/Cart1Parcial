@@ -13,7 +13,6 @@ var formUpload = multer({
 
 router.get('/', (req, res, next) => {
 	res.send('Users hello');
-
 });
 
 router.get('/getUsers', (req, res, next) => {
@@ -35,26 +34,6 @@ router.get('/getUsers', (req, res, next) => {
 	});
 });
 
-router.get('/loginUser', (req, res, next) => {
-	var str = '';
-	var connector = new Mongo((err) => {
-		ProductModel.getUser(connector, 'VCyan', (doc, err) => {
-
-			if (doc == null) {
-				res.end(str);
-				connector.close();
-			} else {
-				console.log(doc);
-			}
-		});
-		// console.log('Ready!! to go ');
-	});
-});
-/*
- console.log(req.files["File1"][0]);
-    
-     fs.renameSync(req.files["File1"][0].path , "./uploads/"+req.files["File1"][0].originalname );
-    res.end('done');*/
 
 router.post('/create',
 	formUpload.fields(

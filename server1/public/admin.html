@@ -15,7 +15,7 @@
 		<br />Password: <input type="password" name="password" id="password" />
 		<br />Email: <input type="text" name="email" id="email" />
 		<br />Photo:<input type="file" name="photoFile" id="photoFile" />
-		<button type="button" onclick="doInsertUser();">Enviar</button>
+		<button type="button" onclick="doInsertUserAdmin();">Enviar</button>
 	</form>
 
 	<h1>Agregar producto:</h1>
@@ -28,6 +28,9 @@
 		<button type="button" onclick="doInsertProduct();">Enviar</button>
 	</form>
 
+	<button type="button" onclick="doLogout();">Logout</button>
+
+	<a href="#" onclick="getUsers();">Get users</a>
 	<a href="#" onclick="getUsers();">Get users</a>
 	<div id="allUsers"></div>
 

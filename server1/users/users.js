@@ -80,35 +80,35 @@ router.post('/create',
 		console.log(req.body);
 		console.log(req.files);
 
+		var finalPhotoUrl = 'photos/users/' + req.body.username + '/' + req.files['photo'][0].originalname;
 
-		var finalPhotoUrl = 'photos/' + req.body.username + '/' + req.files['photo'][0].originalname;
-
-		if (!fs.existsSync('./public/photos/' + req.body.username)) {
-			fs.mkdirSync('./public/photos/' + req.body.username);
+		if (!fs.existsSync('./public/photos/users/' + req.body.username)) {
+			fs.mkdirSync('./public/photos/users/' + req.body.username);
 		}
 
 		fs.renameSync(req.files['photo'][0].path, './public/' + finalPhotoUrl);
 
-
-		var user = new UserModel({
+		let user = new UserModel({
 			username: req.body.username,
 			password: req.body.password,
 			email: req.body.email,
 			photo: finalPhotoUrl
 		});
 
-		var connector = new Mongo((err) => {
+		// Perform ajax
 
-			UserModel.insertUser(connector,
-				user,
-				(err, mongoRes) => {
-					console.log(mongoRes.result);
-					connector.close();
-					res.end('done user create');
-				}
-			);
-			console.log('Ready!! to go ');
-		});
+		// var connector = new Mongo((err) => {
+
+		// 	UserModel.insertUser(connector,
+		// 		user,
+		// 		(err, mongoRes) => {
+		// 			console.log(mongoRes.result);
+		// 			connector.close();
+		// 			res.end('done user create');
+		// 		}
+		// 	);
+		// 	console.log('Ready!! to go ');
+		// });
 
 	}
 );

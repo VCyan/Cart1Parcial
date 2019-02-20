@@ -1,21 +1,128 @@
-const IP = 'http://localhost:3030';
+const IP = 'http://10.25.251.166:3030';
 
-const USERS_ENDPOINT = '/api/v1/users/search_users';
-const PRODUCT_ENDPOINT = '/api/v1/events/search_events';
+// const USERS_ENDPOINT = '/api/v1/users/search_users';
+// const PRODUCT_ENDPOINT = '/api/v1/events/search_events';
 
-// function pingDone(data) {
-// 	//  alert("Data arrived:" + data);
-// 	$('#main').html(data);
-// 	// document.getElementById('main').innerHTML = data;
-// }
+function listCookies() {
+	var theCookies = document.cookie.split(';');
+	var aString = '';
+	for (var i = 1; i <= theCookies.length; i++) {
+		aString += i + ' ' + theCookies[i - 1] + '\n';
+	}
+	return aString;
+}
 
-// function onStart() {
-// 	alert('loaded!');
-// 	$.ajax('/ping').done(pingDone);
-// }
+function setCookie(name, value, days) {
+	var expires = '';
+	if (days) {
+		var date = new Date();
+		date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+		expires = '; expires=' + date.toUTCString();
+	}
+	document.cookie = name + '=' + (value || '') + expires + '; path=/';
+}
 
-// $(document).ready(onStart);
+function getCookie(name) {
+	var nameEQ = name + '=';
+	var ca = document.cookie.split(';');
+	for (var i = 0; i < ca.length; i++) {
+		var c = ca[i];
+		while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+		if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+	}
+	return null;
+}
 
+function eraseCookie(name) {
+	document.cookie = name + '=; Max-Age=-99999999;';
+}
+
+function doLogin() {
+	// var data_to_send = JSON.stringify($('form.classLogin').serializeArray());
+	var v_user = $('#usernameLogin').val();
+	var v_pass = $('#passwordLogin').val();
+	var data_to_send = {
+		username: v_user,
+		password: v_pass
+	};
+	// event.preventDefault();
+	// 	// console.log($(this).serialize());
+	// var data_to_send = JSON.stringify(data.serializeArray()); //  <-----------
+	console.log(data_to_send);
+
+	let settings = {
+		async: true,
+		crossDomain: true,
+		url: IP + '/sesions',
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json',
+			'cache-control': 'no-cache'
+		},
+		processData: false,
+		data: JSON.stringify(data_to_send)
+	};
+
+	$.ajax(settings).done(response => {
+		console.log(response);
+		// Found?
+		console.log(response['state']);
+		let obj = $.parseJSON(response);
+		if (obj['state'] === 'success') {
+			// redirect('/userPage.html');
+			// document.cookie = 'username=' + response.username;
+			// document.cookie = 'token=' + response.token;
+			setCookie('username', obj['username'], 7);
+			setCookie('token', obj['token'], 7);
+			setCookie('userType', obj['userType'], 7);
+			// alert(document.cookie);
+			if (parseInt(getCookie('userType')) === 0) {
+				window.location.replace('./admin.html');
+			} else {
+				window.location.replace('./user.html');
+			}
+		} else {
+			console.log('failonLogin');
+		}
+	});
+}
+
+function doLogout() {
+	var data_to_send = {
+		username: getCookie('username'),
+		token: getCookie('token')
+	};
+	console.log(data_to_send);
+
+	let settings = {
+		async: true,
+		crossDomain: true,
+		url: IP + '/sesions',
+		method: 'DELETE',
+		headers: {
+			'Content-Type': 'application/json',
+			'cache-control': 'no-cache'
+		},
+		processData: false,
+		data: JSON.stringify(data_to_send)
+	};
+
+	$.ajax(settings).done(response => {
+		console.log(response);
+		let obj = $.parseJSON(response);
+		if (obj['state'] === 'success') {
+
+			eraseCookie('username');
+			eraseCookie('token');
+			eraseCookie('userType');
+			alert(document.cookie);
+
+			window.location.replace('./index.html');
+		} else {
+			console.log('failonLogin');
+		}
+	});
+}
 
 function doInsertUser() {
 	var data = new FormData();
@@ -35,61 +142,6 @@ function doInsertUser() {
 		success: function (data) {
 			alert('Did arrive ' + data);
 		}
-	});
-}
-
-function getUsers() {
-	$.ajax('/users/getUsers').done(data => {
-		$('#allUsers').html(data);
-	});
-}
-
-function doLogin() {
-	// var data_to_send = JSON.stringify($('form.classLogin').serializeArray());
-	var f_birthday = $('#usernameLogin').val();
-	var f_location = $('#passwordLogin').val();
-	var data_to_send = {
-		'username': f_birthday,
-		'password': f_location
-	};
-	// event.preventDefault();
-	// 	// console.log($(this).serialize());
-	// var data_to_send = JSON.stringify(data.serializeArray()); //  <-----------
-	console.log(data_to_send);
-	let settings = {
-		'async': true,
-		'crossDomain': true,
-		'url': 'http://10.25.251.166:3030/sesions',
-		'method': 'POST',
-		'headers': {
-			'Content-Type': 'application/json',
-			'cache-control': 'no-cache',
-		},
-		
-		'processData': false,
-		'data': JSON.stringify(data_to_send)
-	};
-
-	/* 	{
-			url: '10.25.251.166:3030/sesions',
-			data: data_to_send,
-			cache: false,
-			contentType: 'application/json',
-			processData: false,
-			method: 'GET',
-			type: 'GET' // For jQuery < 1.9 success: function(data) { alert('Did arrive ' + data);
-		} */
-
-	$.ajax(settings).done(response => {
-		console.log(response);
-		// Found?
-		console.log(response);
-
-		// if (response) {
-		// 	window.location.replace('./userPage.html');
-		// 	// redirect('/userPage.html');
-		// }
-		// UserType?
 	});
 }
 
@@ -115,45 +167,30 @@ function doInsertProduct() {
 	});
 }
 
-// function doUpload() {
-// 	var data = new FormData();
-
-// 	data.append('File1', $('#myFile')[0].files[0]);
-
-// 	$.ajax({
-// 		url: '/uploadFile',
-// 		data: data,
-// 		cache: false,
-// 		contentType: false,
-// 		processData: false,
-// 		method: 'POST',
-// 		type: 'POST', // For jQuery < 1.9
-// 		success: function (data) {
-// 			alert('Did arrive ' + data);
-// 		}
-// 	});
-// }
+function getUsers() {
+	$.ajax('/users/getUsers').done(data => {
+		$('#allUsers').html(data);
+	});
+}
 
 function setSettings(data) {
 	let settings = {
-		'async': true,
-		'crossDomain': true,
-		'url': IP + 'USERS_ENDPOINT',
-		'method': 'POST',
-		'headers': {
+		async: true,
+		crossDomain: true,
+		url: IP + 'USERS_ENDPOINT',
+		method: 'POST',
+		headers: {
 			'Content-Type': 'application/json',
-			'cache-control': 'no-cache',
+			'cache-control': 'no-cache'
 		},
-		'processData': false,
-		'data': JSON.stringify(data)
+		processData: false,
+		data: JSON.stringify(data)
 	};
 	return settings;
 }
 
-
 jQuery(document).ready(function ($) {
 	// 'use strict';
-
 	// $('form.classUser').on('submit', function (event) {
 	// 	// event.preventDefault();
 	// 	// console.log($(this).serialize());
@@ -171,13 +208,38 @@ jQuery(document).ready(function ($) {
 	// 		'processData': false,
 	// 		'data': data_to_send
 	// 	};
-
 	// 	$.ajax(settings).done(function (response) {
 	// 		console.log(data_to_send);
 	// 		console.log(response);
 	// 	});
 	// 	// https://stackoverflow.com/questions/1357118/event-preventdefault-vs-return-false
-	// 	return false; // don't submit the form 
+	// 	return false; // don't submit the form
 	// });
 
+
+	// function doUpload() {
+	// 	var data = new FormData();
+	// 	data.append('File1', $('#myFile')[0].files[0]);
+	// 	$.ajax({
+	// 		url: '/uploadFile',
+	// 		data: data,
+	// 		cache: false,
+	// 		contentType: false,
+	// 		processData: false,
+	// 		method: 'POST',
+	// 		type: 'POST', // For jQuery < 1.9
+	// 		success: function (data) {
+	// 			alert('Did arrive ' + data);
+	// 		}
+	// 	});
+	// }
+	/* 	{
+			url: '10.25.251.166:3030/sesions',
+			data: data_to_send,
+			cache: false,
+			contentType: 'application/json',
+			processData: false,
+			method: 'GET',
+			type: 'GET' // For jQuery < 1.9 success: function(data) { alert('Did arrive ' + data);
+		} */
 });
