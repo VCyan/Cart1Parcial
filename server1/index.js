@@ -1,6 +1,7 @@
 var express = require('express');
 var cookieParser = require('cookie-parser');
 var users = require('./users/users.js');
+var products = require('./products/products.js');
 var fs = require('fs');
 var multer = require('multer');
 var uploadFolder = multer({
@@ -12,30 +13,31 @@ var app = express();
 app.use(cookieParser());
 app.use(express.static('./public'));
 app.use('/users', users);
+app.use('/products', products);
 
 app.use('/*', (req, res, next) => {
-	console.log(req.cookies);
+	// console.log(req.cookies);
 	next();
 });
 
-app.post('/uploadFile', uploadFolder.single('File1'), (req, res, next) => {
+// app.post('/uploadFile', uploadFolder.single('File1'), (req, res, next) => {
 
-	fs.renameSync(req.file.path, req.file.destination + req.file.originalname);
+// 	fs.renameSync(req.file.path, req.file.destination + req.file.originalname);
 
-	console.log(req.file);
-	res.end('done');
-});
+// 	console.log(req.file);
+// 	res.end('done');
+// });
 
-app.get('/setCookie', (req, res) => {
-	res.cookie('myCookie', 'data');
-	res.end('cookie set');
-});
+// app.get('/setCookie', (req, res) => {
+// 	res.cookie('myCookie', 'data');
+// 	res.end('cookie set');
+// });
 
-app.get('/ping', (req, res) => {
-	res.set('Content-type', 'text/html');
-	res.send('<div>Pong</div>');
-	res.end();
-});
+// app.get('/ping', (req, res) => {
+// 	res.set('Content-type', 'text/html');
+// 	res.send('<div>Pong</div>');
+// 	res.end();
+// });
 
 app.get('/', (req, res) => {
 	res.redirect('/index.html');
