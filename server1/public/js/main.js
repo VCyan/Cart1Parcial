@@ -62,6 +62,7 @@ function doLogout() {
 			Cookies.remove('userType', {
 				path: '/'
 			});
+			window.location.replace('./index.html');
 		}
 	});
 }
