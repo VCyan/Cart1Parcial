@@ -24,7 +24,7 @@
 		<br />Price: <input type="number" name="productPrice" id="productPrice" />
 		<br />Quantity:<input type="number" name="quantityProduct" id="quantityProduct" />
 		<br>
-<textarea cols="40" rows="6" id=productDescription" name="productDescription" placeholder="Product's Description"></textarea>
+		<textarea cols="40" rows="6" id=productDescription" name="productDescription" placeholder="Product's Description"></textarea>
 		<br />Product Photo:<input type="file" name="photoProduct" id="photoProduct" />
 		<button type="button" onclick="doInsertProduct();">Enviar</button>
 	</form>
@@ -33,6 +33,9 @@
 
 	<a href="#" onclick="getUsers();">Get users</a>
 	<div id="allUsers"></div>
+
+	<a href="#" onclick="getTransactions();">Get Transactions</a>
+	<div id="allTransactions"></div>
 
 	<!-- Template Main Javascript File -->
 	<script src="js/js.cookie.js"></script>

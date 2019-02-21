@@ -1,4 +1,10 @@
 // $(document).ready(getUser);
+$(document).ready(function() {
+	getProducts();
+	// Understanding Event Delegation
+	// https://learn.jquery.com/events/event-delegation/
+	$('table').on('change', 'select.selectedQty', updateQty);
+});
 
 function getUser() {
 	let data_to_receive = '';
@@ -97,11 +103,7 @@ function getProducts() {
 		// data_to_receive = response;
 		if (obj['products'].length > 0) {
 			obj['products'].forEach(function (element) {
-				// var product = '';
-				// var name = element['photoProduct'];
-				// alert(name);
-
-				var img = `< img id='${element['id ']} src="./${element['photoProduct']}"	alt="" width = "50px" >`
+				// var img = `< img id='${element['id ']} src="./${element['photoProduct']}"	alt="" width = "50px" >`
 				// img.setAttribute('id', element['id']);
 				// img.setAttribute('src', './' + element['photoProduct']);
 				// img.setAttribute('width', '50px');
@@ -113,20 +115,42 @@ function getProducts() {
 				// 	'title': 'nasty logo',
 				// 	'width': 50
 				// });
-
+				let optionQty = '';
+				for (let index = 0; index <= parseInt(element.quantityProduct); index++) {
+					optionQty = optionQty + '<option value="' + index + '">' + index + '</option>';
+				}
 				var row =
 					// '<tr><td>< img id='+ element['id ']+'src="./'+element['photoProduct']+'"	width = "50px"></td>' +
-					'<tr><td><img id="' + element.id + '" src="./' + element.photoProduct + '" height="150px" width="150px"></td>' +
+					'<tr><td><img src="./' + element.photoProduct + '" height="150px" width="150px"></td>' +
 					'<td>' + element.productName + '</td>' +
 					'<td>' + element.productDescription + '</td>  ' +
 					'<td>' + element.productPrice + '</td> ' +
-					'<td>' + element.quantityProduct + '</td></tr>';
+					'<td>' + element.quantityProduct + '</td>' +
+					'<td><select class="selectedQty"  data-id="' + element.id + '">' + optionQty + '</select></td></tr>';
 				// '<td>' + element.photoProduct + '</td></tr>';
 				$('#allProducts').append(row);
-
-
 			});
 		}
 		// $('#allProducts').html(response);
 	});
+}
+
+function updateQty() {
+	// var confirmation = confirm('Are you sure');
+	let data_to_send = {
+		username: Cookies.get('username'),
+		token: Cookies.get('token'),
+		product_id: $(this).data('id'),
+		quantityProduct: $(this).children('option:selected').val()
+	};
+	console.log(data_to_send);
+	alert(data_to_send);
+	
+
+	// $.ajax({
+	// 	type: 'PUT',
+	// 	url: '/users/delete/' + $(this).data('id')
+	// }).done((response) => {
+	// 	// window.location.replace('/');
+	// });
 }
