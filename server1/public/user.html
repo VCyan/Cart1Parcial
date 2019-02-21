@@ -10,10 +10,11 @@
 	<h1>Pagina principal USER</h1>
 	<button type="button" onclick="doLogout();">Logout</button>
 	<br />
+
 	<h1>Ver productos</h1>
 	<a href="#" onclick="getProducts();">Get Products</a>
 
-	<table class="table table-bordered table-hover" id="tab_logic">
+	<table class="tableProducts table table-bordered table-hover" id="tab_logic">
 		<thead>
 			<tr>
 				<th class="text-center"> Image </th>
@@ -29,6 +30,28 @@
 		</tbody>
 	</table>
 
+	<h1>Ver Cart</h1>
+	<a href="#" onclick="resetCart();">Reset Cart</a>
+	<a href="#" onclick="getCart();">Get Cart</a>
+	<table class="tableCart table table-bordered table-hover" id="tab_logic">
+		<thead>
+			<tr>
+				<th class="text-center"> Image </th>
+				<th class="text-center"> Product </th>
+				<th class="text-center"> Price </th>
+				<th class="text-center"> Quantity </th>
+				<th class="text-center"> Cost </th>
+				<th class="text-center"> Delete </th>
+				<!-- <button onclick=""></button> -->
+			</tr>
+		</thead>
+		<tbody id="allCart">
+			<tr></tr>
+		</tbody>
+	</table>
+
+	<a href="#" id="checkout" onclick="doCheckout();">Get Cart</a>
+
 	<h1>Editar Perfil</h1>
 	<form class="classUser" action="/users/update" enctype="multipart/form-data" method="POST">
 		<br />Username: <input type="text" name="username" id="username" />
@@ -36,8 +59,6 @@
 		<br />Email: <input type="text" name="email" id="email" />
 		<br />Photo:<input type="file" name="photoFile" id="photoFile" />
 		<button type="button" onclick="doEditUser();">Enviar</button>
-		<button type="button" onclick="alert('hola')">Enviar</button>
-		<select name="" id="" disabled="disabled" onclick=""><option value=""></option></select>
 	</form>
 
 	<!-- Template Main Javascript File -->

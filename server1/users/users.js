@@ -179,18 +179,18 @@ router.put('/update',
 		};
 
 		// Perform ajax
-
+		// Auch!
 		const IP = 'http://localhost:3030';
 		var options = {
 			method: 'PUT',
 			body: data_to_post,
 			json: true,
-			url: IP + '/users'
+			url: IP + '/users' + req.body.usernameCookie
 		};
 
 		console.log(options);
 		
-		/* request(options, function (err, res, body) {
+		request(options, function (err, res, body) {
 			if (err) {
 				console.error('error posting json: ', err);
 				throw err;
@@ -202,7 +202,7 @@ router.put('/update',
 			// console.log('body: ', body);
 			let state = body.state;
 			console.log(state);
-		}); */
+		});
 	}
 );
 
