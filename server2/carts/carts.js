@@ -20,12 +20,33 @@ router.get('/', jsonParser, (req,res,next) => {
         res.end(str);
         connector.close();
       } else {
-        str += JSON.stringify(doc);
+        str += JSON.stringify(doc)+',\n';
         //str += '{"username":"'+doc.username+'", "password":"'+doc.password+'", "email":"'+doc.email+'", "photo":"'+doc.photo+'", "userType":'+doc.userType+'},\n';
       }
     })
 
   })
 })
+
+router.get('/:username' , (req,res,next)=>{
+    console.log("Get Cart Request Username=>" + req.params.username);
+
+    var connector = new Mongo( (err)=> {
+
+      var str = '';
+
+      CartModel.getCarts( connector, {username:req.params.username}, (doc,err)=> {
+        //
+        if (doc == null) {
+          res.end(str);
+          connector.close();
+        } else {
+          str += JSON.stringify(doc);
+          //str += '{"username":"'+doc.username+'", "password":"'+doc.password+'", "email":"'+doc.email+'", "photo":"'+doc.photo+'", "userType":'+doc.userType+'},\n';
+        }
+      })
+
+    })
+});
 
 module.exports = router;

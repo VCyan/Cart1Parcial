@@ -11,8 +11,8 @@ class CartModel{
   callback: function to call EACH time a record is found
   */
   static getCarts(connector, cartModel, callback){
-
-      connector.getDocsFromCollection('carts', {}, callback);
+      //console.log(cartModel);
+      connector.getDocsFromCollection('carts', cartModel, callback);
   }
 }
 
