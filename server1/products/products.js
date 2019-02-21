@@ -17,25 +17,25 @@ router.get('/', (req, res, next) => {
 router.post('/create',
 	formUpload.fields(
 		[{
-			name: 'productName',
-			maxCount: 1
-		},
-		{
-			name: 'productPrice',
-			maxCount: 1
-		},
-		{
-			name: 'quantityProduct',
-			maxCount: 1
-		},
-		{
-			name: 'productDescription',
-			maxCount: 1
-		},
-		{
-			name: 'photoProduct',
-			maxCount: 1
-		}
+				name: 'productName',
+				maxCount: 1
+			},
+			{
+				name: 'productPrice',
+				maxCount: 1
+			},
+			{
+				name: 'quantityProduct',
+				maxCount: 1
+			},
+			{
+				name: 'productDescription',
+				maxCount: 1
+			},
+			{
+				name: 'photoProduct',
+				maxCount: 1
+			}
 		]
 	),
 	(req, res, next) => {
@@ -61,7 +61,7 @@ router.post('/create',
 		console.log(data_to_post);
 
 		// Perform ajax
-		const IP = 'http://localhost:3030';
+		const IP = 'http://10.25.244.99:3030';
 		var options = {
 			method: 'POST',
 			body: data_to_post,

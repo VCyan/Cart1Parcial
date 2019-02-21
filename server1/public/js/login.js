@@ -1,4 +1,4 @@
-const IP = 'http://localhost:3030';
+const IP = 'http://10.25.244.99:3030';
 
 $(document).ready(checkCookiesIN);
 

@@ -97,7 +97,7 @@ router.post('/create',
 
 		// Perform ajax
 
-		const IP = 'http://localhost:3030';
+		const IP = 'http://10.25.244.99:3030';
 		var options = {
 			method: 'POST',
 			body: data_to_post,
@@ -180,7 +180,7 @@ router.put('/update',
 
 		// Perform ajax
 		// Auch!
-		const IP = 'http://localhost:3030';
+		const IP = 'http://10.25.244.99:3030';
 		var options = {
 			method: 'PUT',
 			body: data_to_post,
