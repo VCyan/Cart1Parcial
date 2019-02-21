@@ -61,7 +61,7 @@ router.post('/create',
 		console.log(data_to_post);
 
 		// Perform ajax
-		const IP = 'http://10.25.251.166:3030';
+		const IP = 'http://localhost:3030';
 		var options = {
 			method: 'POST',
 			body: data_to_post,

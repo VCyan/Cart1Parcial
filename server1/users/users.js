@@ -7,7 +7,6 @@ const Mongo = require('../MongoConnector.js');
 const router = express.Router();
 const request = require('request');
 
-
 var formUpload = multer({
 	dest: './temp'
 });
@@ -80,6 +79,7 @@ router.post('/create',
 		console.log(req.body);
 		console.log(req.files);
 
+		// var finalPhotoUrl = 'photos/users/' + req.body.username + '/' + req.files['photo'][0].originalname;
 		var finalPhotoUrl = 'photos/users/' + req.body.username + '/' + req.files['photo'][0].originalname;
 
 		if (!fs.existsSync('./public/photos/users/' + req.body.username)) {
@@ -97,14 +97,14 @@ router.post('/create',
 
 		// Perform ajax
 
-		const IP = 'http://10.25.251.166:3030';
+		const IP = 'http://localhost:3030';
 		var options = {
 			method: 'POST',
 			body: data_to_post,
 			json: true,
-			url: IP +'/users'
+			url: IP + '/users'
 		};
-
+		
 		request(options, function (err, res, body) {
 			if (err) {
 				console.error('error posting json: ', err);
@@ -118,28 +118,92 @@ router.post('/create',
 			let state = body.state;
 			console.log(state);
 		});
-
-
-		// var connector = new Mongo((err) => {
-
-		// 	UserModel.insertUser(connector,
-		// 		user,
-		// 		(err, mongoRes) => {
-		// 			console.log(mongoRes.result);
-		// 			connector.close();
-		// 			res.end('done user create');
-		// 		}
-		// 	);
-		// 	console.log('Ready!! to go ');
-		// });
-
 	}
 );
 
-// router.get('/profile/:id/edit', (req, res) => {
-// 	console.log('profile id=>' + req.params.id);
-// 	res.send('Id reached : ' + req.params.id);
-// });
+router.put('/update',
+	formUpload.fields(
+		[{
+			name: 'usernameCookie',
+			maxCount: 1
+		}
+		,
+		{
+			name: 'tokenCookie',
+			maxCount: 1
+		},
+		{
+			name: 'password',
+			maxCount: 1
+		},
+		{
+			name: 'password',
+			maxCount: 1
+		},
+		{
+			name: 'email',
+			maxCount: 1
+		},
+		{
+			name: 'photo',
+			maxCount: 1
+		}
+		]
+	),
+	(req, res, next) => {
+		console.log(req.body);
+		console.log(req.files);
 
+		// var finalPhotoUrl = 'photos/users/' + req.body.username + '/' + req.files['photo'][0].originalname;
+		var finalPhotoUrl = 'photos/users/' + req.body.username + '/' + req.files['photo'][0].originalname;
+
+		if (!fs.existsSync('./public/photos/users/' + req.body.username)) {
+			fs.mkdirSync('./public/photos/users/' + req.body.username);
+		}
+
+		fs.renameSync(req.files['photo'][0].path, './public/' + finalPhotoUrl);
+
+		// let data_to_post = new UserModel({
+		// 	username: req.body.username,
+		// 	password: req.body.password,
+		// 	email: req.body.email,
+		// 	photo: finalPhotoUrl
+		// });
+		let data_to_post = {
+			usernameCookie: req.body.usernameCookie,
+			tokenCookie: req.body.tokenCookie,
+			username: req.body.username,
+			password: req.body.password,
+			email: req.body.email,
+			photo: finalPhotoUrl
+		};
+
+		// Perform ajax
+
+		const IP = 'http://localhost:3030';
+		var options = {
+			method: 'PUT',
+			body: data_to_post,
+			json: true,
+			url: IP + '/users'
+		};
+
+		console.log(options);
+		
+		/* request(options, function (err, res, body) {
+			if (err) {
+				console.error('error posting json: ', err);
+				throw err;
+			}
+			var headers = res.headers;
+			var statusCode = res.statusCode;
+			// console.log('headers: ', headers);
+			// console.log('statusCode: ', statusCode);
+			// console.log('body: ', body);
+			let state = body.state;
+			console.log(state);
+		}); */
+	}
+);
 
 module.exports = router;

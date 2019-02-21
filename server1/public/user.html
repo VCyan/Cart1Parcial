@@ -7,15 +7,21 @@
 
 <body>
 	<h1>Pagina principal USER</h1>
-
+	<button type="button" onclick="doLogout();">Logout</button>
 	<br />
 	<h1>Ver productos</h1>
 	<a href="#" onclick="getProducts();">Get users</a>
 
 	<div id="allProducts"></div>
 
-
-	<button type="button" onclick="doLogout();">Logout</button>
+	<h1>Editar Perfil</h1>
+	<form class="classUser" action="/users/update" enctype="multipart/form-data" method="POST">
+		<br />Username: <input type="text" name="username" id="username" />
+		<br />Password: <input type="password" name="password" id="password" />
+		<br />Email: <input type="text" name="email" id="email" />
+		<br />Photo:<input type="file" name="photoFile" id="photoFile"/>
+		<button type="button" onclick="doEditUser();">Enviar</button>
+	</form>
 
 	<!-- Template Main Javascript File -->
 	<script src="js/js.cookie.js"></script>
