@@ -56,7 +56,8 @@ router.put('/:username', jsonParser, (req,res,next)=>{
 
       var str = '';
 
-      CartModel.insertProduct( connector, {username:req.params.username}, {id:req.body.product_id,quantity:req.body.quantityProduct}, (doc,err)=> {
+      //CartModel.insertProduct( connector, {username:req.params.username}, {id:req.body.product_id,quantity:req.body.quantityProduct}, (doc,err)=> {
+      CartModel.insertProduct( connector, {username:req.params.username}, {id:req.body.product_id,product_name:req.body.product_name,price:req.body.price,photo:req.body.photo, quantityProduct: req.body.quantityProduct}, (doc,err)=> {
         //
         if (doc == null) {
           res.end(str);
