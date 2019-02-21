@@ -12,7 +12,20 @@
 	<h1>Ver productos</h1>
 	<a href="#" onclick="getProducts();">Get Products</a>
 
-	<div id="allProducts"></div>
+	<table class="table table-bordered table-hover" id="tab_logic">
+		<thead>
+			<tr>
+				<th class="text-center"> Product </th>
+				<th class="text-center"> Description </th>
+				<th class="text-center"> Price </th>
+				<th class="text-center"> Quantity </th>
+				<th class="text-center"> Image </th>
+			</tr>
+		</thead>
+		<tbody id="allProducts">
+			<tr></tr>
+		</tbody>
+	</table>
 
 	<h1>Editar Perfil</h1>
 	<form class="classUser" action="/users/update" enctype="multipart/form-data" method="POST">
@@ -20,7 +33,7 @@
 		<br />Password: <input type="password" name="password" id="password" />
 		<br />Email: <input type="text" name="email" id="email" />
 		<br />Photo:<input type="file" name="photoFile" id="photoFile" />
-<button type="button" onclick="doEditUser();">Enviar</button>
+		<button type="button" onclick="doEditUser();">Enviar</button>
 		<button type="button" onclick="alert('hola')">Enviar</button>
 	</form>
 

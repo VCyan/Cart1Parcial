@@ -70,7 +70,7 @@ function doEditUser() {
 }
 
 function getProducts() {
-	let data_to_receive = '';
+	// let data_to_receive = '';
 	let data_to_send = {
 		username: Cookies.get('username'),
 		token: Cookies.get('token')
@@ -91,8 +91,35 @@ function getProducts() {
 	};
 	$.ajax(settings).done(response => {
 		console.log(response);
-		data_to_receive = response;
-	});
+		let obj = $.parseJSON(response);
+		console.log(obj['products']);
+		// if (obj['state'] === 'success')
+		// data_to_receive = response;
+		if (obj['products'].length > 0) {
+			obj['products'].forEach(function (element) {
+				var product = '';
+				// var link = $('<a />').attr({
+				// 	'href': "./event.html?event_id=" + element.id + "&usr=" + username
+				// }).prepend(img).appendTo('#myEvents');
 
-	$('#allProducts').html(data_to_receive);
+				var img = $('<img />').attr({
+					// 'id': 'myImage' + element.name,
+					'src': element.photoProduct,
+					'width': '50px',
+					// 'title': "Name: " + element.name + "\nPlace: " + element.event_location + "\nDate: " + element.event_date
+				});
+
+				var row = '<tr><td>' + element.productName + '</td>' +
+					'<td>' + element.productDescription + '</td>  ' +
+					'<td>' + element.productPrice + '</td> ' +
+					'<td>' + element.quantityProduct + '</td>' +
+					'<td>' + img + '</td></tr>';
+
+				$('#allProducts').append(row);
+
+
+			});
+		}
+		$('#allProducts').html(response);
+	});
 }
