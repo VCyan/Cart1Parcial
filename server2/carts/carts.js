@@ -70,4 +70,24 @@ router.put('/:username', jsonParser, (req,res,next)=>{
     })
 });
 
+router.delete('/:username', jsonParser, (req,res,next)=>{
+  console.log("DELETE Product Cart Request Username=>" + req.params.username);
+
+  var connector = new Mongo( (err)=> {
+
+    var str = '';
+
+    CartModel.emptyCart( connector, {username:req.params.username}, (doc,err)=> {
+      //
+      if (doc == null) {
+        res.end(str);
+        connector.close();
+      } else {
+        str += JSON.stringify(doc);
+      }
+    })
+
+  })
+})
+
 module.exports = router;
