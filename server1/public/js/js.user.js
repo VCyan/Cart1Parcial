@@ -97,29 +97,36 @@ function getProducts() {
 		// data_to_receive = response;
 		if (obj['products'].length > 0) {
 			obj['products'].forEach(function (element) {
-				var product = '';
-				// var link = $('<a />').attr({
-				// 	'href': "./event.html?event_id=" + element.id + "&usr=" + username
-				// }).prepend(img).appendTo('#myEvents');
+				// var product = '';
+				// var name = element['photoProduct'];
+				// alert(name);
 
-				var img = $('<img />').attr({
-					// 'id': 'myImage' + element.name,
-					'src': element.photoProduct,
-					'width': '50px',
-					// 'title': "Name: " + element.name + "\nPlace: " + element.event_location + "\nDate: " + element.event_date
-				});
+				var img = `< img id='${element['id ']} src="./${element['photoProduct']}"	alt="" width = "50px" >`
+				// img.setAttribute('id', element['id']);
+				// img.setAttribute('src', './' + element['photoProduct']);
+				// img.setAttribute('width', '50px');
 
-				var row = '<tr><td>' + element.productName + '</td>' +
+				// img.set({
+				// 	'id': ,
+				// 	'src': './' + element['photoProduct'],
+				// 	'alt': 'product image',
+				// 	'title': 'nasty logo',
+				// 	'width': 50
+				// });
+
+				var row =
+					// '<tr><td>< img id='+ element['id ']+'src="./'+element['photoProduct']+'"	width = "50px"></td>' +
+					'<tr><td><img id="' + element.id + '" src="./' + element.photoProduct + '" height="150px" width="150px"></td>' +
+					'<td>' + element.productName + '</td>' +
 					'<td>' + element.productDescription + '</td>  ' +
 					'<td>' + element.productPrice + '</td> ' +
-					'<td>' + element.quantityProduct + '</td>' +
-					'<td>' + img + '</td></tr>';
-
+					'<td>' + element.quantityProduct + '</td></tr>';
+				// '<td>' + element.photoProduct + '</td></tr>';
 				$('#allProducts').append(row);
 
 
 			});
 		}
-		$('#allProducts').html(response);
+		// $('#allProducts').html(response);
 	});
 }
