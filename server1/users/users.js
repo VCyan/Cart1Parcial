@@ -58,21 +58,21 @@ router.get('/loginUser', (req, res, next) => {
 router.post('/create',
 	formUpload.fields(
 		[{
-			name: 'username',
-			maxCount: 1
-		},
-		{
-			name: 'password',
-			maxCount: 1
-		},
-		{
-			name: 'email',
-			maxCount: 1
-		},
-		{
-			name: 'photo',
-			maxCount: 1
-		}
+				name: 'username',
+				maxCount: 1
+			},
+			{
+				name: 'password',
+				maxCount: 1
+			},
+			{
+				name: 'email',
+				maxCount: 1
+			},
+			{
+				name: 'photo',
+				maxCount: 1
+			}
 		]
 	),
 	(req, res, next) => {
@@ -104,7 +104,7 @@ router.post('/create',
 			json: true,
 			url: IP + '/users'
 		};
-		
+
 		request(options, function (err, res, body) {
 			if (err) {
 				console.error('error posting json: ', err);
@@ -124,30 +124,29 @@ router.post('/create',
 router.put('/update',
 	formUpload.fields(
 		[{
-			name: 'usernameCookie',
-			maxCount: 1
-		}
-		,
-		{
-			name: 'tokenCookie',
-			maxCount: 1
-		},
-		{
-			name: 'password',
-			maxCount: 1
-		},
-		{
-			name: 'password',
-			maxCount: 1
-		},
-		{
-			name: 'email',
-			maxCount: 1
-		},
-		{
-			name: 'photo',
-			maxCount: 1
-		}
+				name: 'usernameCookie',
+				maxCount: 1
+			},
+			{
+				name: 'tokenCookie',
+				maxCount: 1
+			},
+			{
+				name: 'password',
+				maxCount: 1
+			},
+			{
+				name: 'password',
+				maxCount: 1
+			},
+			{
+				name: 'email',
+				maxCount: 1
+			},
+			{
+				name: 'photo',
+				maxCount: 1
+			}
 		]
 	),
 	(req, res, next) => {
@@ -155,7 +154,8 @@ router.put('/update',
 		console.log(req.files);
 
 		// var finalPhotoUrl = 'photos/users/' + req.body.username + '/' + req.files['photo'][0].originalname;
-		var finalPhotoUrl = 'photos/users/' + req.body.username + '/' + (req.files['photo'][0].originalname).split;
+		var finalPhotoUrl = 'photos/users/' + req.body.username + '/' + (req.files['photo'][0].originalname);
+		console.log('dddddddddd'+finalPhotoUrl);
 
 		if (!fs.existsSync('./public/photos/users/' + req.body.username)) {
 			fs.mkdirSync('./public/photos/users/' + req.body.username);
@@ -185,11 +185,11 @@ router.put('/update',
 			method: 'PUT',
 			body: data_to_post,
 			json: true,
-			url: IP + '/users' + req.body.usernameCookie
+			url: IP + '/users/' + req.body.usernameCookie
 		};
 
 		console.log(options);
-		
+
 		request(options, function (err, res, body) {
 			if (err) {
 				console.error('error posting json: ', err);

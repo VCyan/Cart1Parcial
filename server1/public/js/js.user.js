@@ -252,16 +252,16 @@ function getCart() {
 				// for (let index = 0; index <= parseInt(element.quantityProduct); index++) {
 				// 	optionQty = optionQty + '<option value="' + index + '">' + index + '</option>';
 				// }
-				
-				
+
+
 				var row =
-					'<tr>'+
+					'<tr>' +
 					'<td><img src="./' + element.photo + '" height="150px" width="150px"></td>' +
 					'<td>' + element.product_name + '</td>' +
 					'<td>$' + element.price + '</td>' +
 					'<td>' + element.quantityProduct + '</td>' +
 					'<td>$' + cost + '</td>' +
-					'<td><button class="deleteQty"  data-id="' + element.id + '">Quitar</button>'+
+					'<td><button class="deleteQty"  data-id="' + element.id + '">Quitar</button>' +
 					'</tr>';
 				// '<td>' + element.photoProduct + '</td></tr>';
 				$('#allCart').append(row);
@@ -270,6 +270,8 @@ function getCart() {
 			let totalCost = '<tr><td colspan="3">Amount:</td><td colspan="3">' + totalSum + '</td></tr>';
 			$('#allCart').append(totalCost);
 			// $('#checkout').val(totalCost);
+		} else {
+			$('#allCart').empty();
 		}
 	});
 }
@@ -297,8 +299,9 @@ function resetCart() {
 	$.ajax(settings).done(response => {
 		console.log(response);
 		let obj = $.parseJSON(response);
-		$('#allCart').empty();
+
 	});
+	$('#allCart').empty();
 }
 
 function doCheckout() {
