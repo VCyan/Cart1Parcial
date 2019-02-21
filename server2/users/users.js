@@ -77,4 +77,22 @@ router.post('/', jsonParser, (req,res,next) => {
   } );
 })
 
+router.put('/:username', jsonParser, (req,res,next) => {
+  console.log("PUT Users Request: ", req.body);
+
+  var connector = new Mongo( (err)=>{
+
+      UserModel.updateUser(connector,
+          {username:req.params.username},
+          { $set: {username: req.body.username, password: req.body.password, email: req.body.email, photo: req.body.photo,} },
+          (err, mongoRes)=>{
+              console.log(mongoRes.result);
+              connector.close();
+              res.end('{"state": "success"}');
+          }
+      );
+      //console.log("Ready!! to go ");
+  } );
+})
+
 module.exports = router;
