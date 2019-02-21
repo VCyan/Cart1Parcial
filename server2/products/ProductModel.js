@@ -24,6 +24,16 @@ class ProductModel {
       };
       connector.insertDocInCollection('products', data, callback);
   }
+
+  /*
+  connector: mongo db connection
+  productModel: data for where clause
+  callback: function to call EACH time a record is found
+  */
+  static getProducts(connector, productModel, callback){
+
+      connector.getDocsFromCollection('products', {}, callback);
+  }
 }
 
 module.exports = ProductModel;

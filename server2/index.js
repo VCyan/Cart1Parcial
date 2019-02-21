@@ -24,7 +24,7 @@ app.use('/products' , products);
     res.end("cookie set");
 });*/
 
-app.listen(3030, '0.0.0.0');
+app.listen(3000, '0.0.0.0');
 //app.listen(app.get('port'), function(){
 //  console.log('Express server listening on port ' + app.get('host') + ':' + app.get('port'));
 //});
