@@ -28,4 +28,26 @@ router.get('/', jsonParser, (req,res,next) => {
   })
 })
 
+router.post('/', jsonParser, (req,res,next) => {
+  console.log("Post Transactions Request", req.body);
+
+  var transaction = new TransactionModel({
+      username: req.body.username,
+      amount: req.body.amount
+  });
+
+  var connector = new Mongo( (err)=>{
+
+      TransactionModel.insertTransaction(connector,
+          transaction,
+          (err, mongoRes)=>{
+              console.log(mongoRes.result);
+              connector.close();
+              res.end('{"state": "success"}');
+          }
+      );
+      //console.log("Ready!! to go ");
+  } );
+})
+
 module.exports = router;

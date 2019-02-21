@@ -7,6 +7,20 @@ class TransactionModel {
 
   /*
   connector: mongo db connection
+  transactionModel: data to insert
+  callback: function to call
+  */
+  static insertTransaction(connector, transactionModel, callback){
+
+      var data = {
+          username: transactionModel.username,
+          amount: transactionModel.amount
+      };
+      connector.insertDocInCollection('transactions', data, callback);
+  }
+
+  /*
+  connector: mongo db connection
   transactionModel: data for where clause
   callback: function to call EACH time a record is found
   */
