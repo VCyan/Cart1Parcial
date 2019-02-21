@@ -12,7 +12,7 @@ router.get('/', jsonParser, (req,res,next) => {
 
     var str = '{"carts": [\n';
 
-    CartModel.getCarts( connector, null, (doc,err)=> {
+    CartModel.getCarts( connector, {}, (doc,err)=> {
       //
       if (doc == null) {
         str = str.substring(0, str.length-2);
