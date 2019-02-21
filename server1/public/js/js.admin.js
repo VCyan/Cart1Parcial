@@ -20,13 +20,13 @@ function doInsertUser() {
 		method: 'POST',
 		type: 'POST', // For jQuery < 1.9
 		success: function (data) {
-			alert('Did arrive ' + data);
+			// alert('Did arrive ' + data);
 		}
 	}).done(response => {
 		console.log(response);
 		let obj = $.parseJSON(response);
 		if (obj['state'] === 'success') {
-			alert(obj['state']);
+			// alert(obj['state']);
 		}
 	});
 }
@@ -55,7 +55,7 @@ function doInsertProduct() {
 		method: 'POST',
 		type: 'POST', // For jQuery < 1.9
 		success: function (data) {
-			alert('Did arrive ' + data);
+			// alert('Did arrive ' + data);
 		}
 	});
 }

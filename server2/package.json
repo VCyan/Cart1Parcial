@@ -1,0 +1,20 @@
+{
+  "name": "server2",
+  "version": "1.0.0",
+  "description": "Server2, Proyecto de 1er Parcial de Laboratorio de aplicaciones web",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "keywords": [
+    "server2"
+  ],
+  "author": "Juan Lira",
+  "license": "ISC",
+  "dependencies": {
+    "cookie-parser": "^1.4.4",
+    "express": "^4.16.4",
+    "mongodb": "^3.1.13"
+  }
+}

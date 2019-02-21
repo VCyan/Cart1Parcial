@@ -155,7 +155,7 @@ router.put('/update',
 		console.log(req.files);
 
 		// var finalPhotoUrl = 'photos/users/' + req.body.username + '/' + req.files['photo'][0].originalname;
-		var finalPhotoUrl = 'photos/users/' + req.body.username + '/' + req.files['photo'][0].originalname;
+		var finalPhotoUrl = 'photos/users/' + req.body.username + '/' + (req.files['photo'][0].originalname).split;
 
 		if (!fs.existsSync('./public/photos/users/' + req.body.username)) {
 			fs.mkdirSync('./public/photos/users/' + req.body.username);

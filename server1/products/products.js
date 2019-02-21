@@ -17,25 +17,25 @@ router.get('/', (req, res, next) => {
 router.post('/create',
 	formUpload.fields(
 		[{
-				name: 'productName',
-				maxCount: 1
-			},
-			{
-				name: 'productPrice',
-				maxCount: 1
-			},
-			{
-				name: 'quantityProduct',
-				maxCount: 1
-			},
-			{
-				name: 'productDescription',
-				maxCount: 1
-			},
-			{
-				name: 'photoProduct',
-				maxCount: 1
-			}
+			name: 'productName',
+			maxCount: 1
+		},
+		{
+			name: 'productPrice',
+			maxCount: 1
+		},
+		{
+			name: 'quantityProduct',
+			maxCount: 1
+		},
+		{
+			name: 'productDescription',
+			maxCount: 1
+		},
+		{
+			name: 'photoProduct',
+			maxCount: 1
+		}
 		]
 	),
 	(req, res, next) => {

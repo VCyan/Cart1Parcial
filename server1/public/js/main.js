@@ -3,7 +3,7 @@ const IP = 'http://localhost:3030';
 $(document).ready(checkCookiesOUT);
 
 function checkCookiesOUT() {
-	// alert(document.cookie);
+	alert(document.cookie);
 	if (typeof Cookies.get('token') === 'undefined') {
 		// no cookie
 		// Get out of here...
@@ -53,6 +53,15 @@ function doLogout() {
 			window.location.replace('./index.html');
 		} else {
 			console.log('failonLogin');
+			Cookies.remove('username', {
+				path: '/'
+			});
+			Cookies.remove('token', {
+				path: '/'
+			});
+			Cookies.remove('userType', {
+				path: '/'
+			});
 		}
 	});
 }

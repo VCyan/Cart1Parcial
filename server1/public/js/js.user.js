@@ -1,4 +1,4 @@
-$(document).ready(getUser);
+// $(document).ready(getUser);
 
 function getUser() {
 	let data_to_receive = '';
@@ -11,7 +11,7 @@ function getUser() {
 	let settings = {
 		async: true,
 		crossDomain: true,
-		url: IP + '/users/' +: id,
+		url: IP + '/users/',
 		method: 'GET',
 		headers: {
 			'Content-Type': 'application/json',
@@ -36,7 +36,6 @@ function doEditUser() {
 	// };
 	// console.log(Cookies.get('username'));
 
-
 	var data = new FormData();
 
 	data.append('usernameCookie', Cookies.get('username'));
@@ -59,13 +58,13 @@ function doEditUser() {
 		method: 'PUT',
 		type: 'PUT', // For jQuery < 1.9
 		success: function (data) {
-			alert('Did arrive ' + data);
+			// alert('Did arrive ' + data);
 		}
 	}).done(response => {
 		console.log(response);
 		let obj = $.parseJSON(response);
 		if (obj['state'] === 'success') {
-			alert(obj['state']);
+			// alert(obj['state']);
 		}
 	});
 }
