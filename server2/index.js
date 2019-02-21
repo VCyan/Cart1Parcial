@@ -28,8 +28,8 @@ app.use('/transactions', transactions);
     res.end("cookie set");
 });*/
 
-// app.listen(3000, '0.0.0.0');
-app.listen(3030);
+app.listen(3000, '0.0.0.0');
+// app.listen(3030);
 console.log('Server started and port: 3030');
 
 // app.listen(app.get('port'), function(){
