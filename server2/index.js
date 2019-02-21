@@ -4,6 +4,7 @@ var sesions = require('./sesions/sesions.js');
 var users = require('./users/users.js');
 var products = require('./products/products.js');
 var carts = require('./carts/carts.js');
+var transactions = require('./transactions/transactions.js');
 
 var app = express();
 
@@ -15,6 +16,7 @@ app.use('/sesions', sesions);
 app.use('/users', users);
 app.use('/products', products);
 app.use('/carts', carts);
+app.use('/transactions', transactions);
 
 /* app.use('/*' , (req,res,next)=>{
     console.log("Cookies: \n",  req.cookies);

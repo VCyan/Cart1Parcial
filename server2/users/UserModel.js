@@ -11,6 +11,17 @@ class UserModel {
 
   /*
   connector: mongo db connection
+  id: user to modify
+  userModel: data to write
+  callback: function to call at the very process end
+  */
+  static updateUser(connector, id, fields, callback){
+
+    connector.updateDocInCollection('users', fields, id, callback)
+  }
+
+  /*
+  connector: mongo db connection
   userModel: data to insert
   callback: function to call
   */

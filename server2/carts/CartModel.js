@@ -10,9 +10,35 @@ class CartModel{
   cartModel: data for where clause
   callback: function to call EACH time a record is found
   */
-  static getCarts(connector, cartModel, callback){
+  static insertProduct(connector, username, cartModel, callback){
 
-      connector.getDocsFromCollection('carts', {}, callback);
+      var data = {
+          id: cartModel.id,
+          quantity: cartModel.quantity
+      };
+      //log(cartModel)
+      connector.updateDocInCollection('carts', { $push: { products: data} }, username, callback);
+
+  }
+
+  /*
+  connector: mongo db connection
+  cartModel: data for where clause
+  callback: function to call EACH time a record is found
+  */
+  static getCarts(connector, cartModel, callback){
+      //console.log(cartModel);
+      connector.getDocsFromCollection('carts', cartModel, callback);
+  }
+
+  /*
+  connector: mongo db connection
+  cartModel: data for where clause
+  callback: function to call EACH time a record is found
+  */
+  static emptyCart(connector, username, callback){
+
+      connector.updateDocInCollection('carts', { $set: { products: []} }, username, callback);
   }
 }
 
