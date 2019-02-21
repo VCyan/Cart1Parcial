@@ -36,6 +36,7 @@ class UserModel {
           state: userModel.state
       };
       connector.insertDocInCollection('users', data, callback);
+      connector.insertDocInCollection('carts', {username:userModel.username, products:[]}, callback);
   }
 
   /*

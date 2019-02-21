@@ -10,14 +10,14 @@ class CartModel{
   cartModel: data for where clause
   callback: function to call EACH time a record is found
   */
-  static insertProduct(connector, username, cartModel, callback){
+  static insertProduct(connector, username, prod, callback){
 
-      var data = {
+      /*var data = {
           id: cartModel.id,
           quantity: cartModel.quantity
-      };
-      //log(cartModel)
-      connector.updateDocInCollection('carts', { $push: { products: data} }, username, callback);
+      };*/
+      console.log(prod);
+      connector.updateDocInCollection('carts', { $push: { products: prod} }, username, callback);
 
   }
 

@@ -12,23 +12,25 @@ var app = express();
 // app.set('host', process.env.HOST || '10.25.251.166');
 
 app.use(cookieParser());
+
+app.use('/*' , (req,res,next)=>{
+    var ip = req.connection.remoteAddress;
+    console.log("Request from: ",  ip);
+
+    if (ip == '10.25.244.172' || ip == '10.25.254.156' || ip == '127.0.0.1') {
+      next();
+    } else {
+      res.end('Unauthorized');
+    }
+});
+
 app.use('/sesions', sesions);
 app.use('/users', users);
 app.use('/products', products);
 app.use('/carts', carts);
 app.use('/transactions', transactions);
 
-/* app.use('/*' , (req,res,next)=>{
-    console.log("Cookies: \n",  req.cookies);
-    next();
-});*/
-
-/* app.get('/setCookie' , (req,res)=>{
-    res.cookie('myCookie','data');
-    res.end("cookie set");
-});*/
-
-app.listen(3000, '0.0.0.0');
+app.listen(3030, '0.0.0.0');
 // app.listen(3030);
 console.log('Server started and port: 3030');
 
